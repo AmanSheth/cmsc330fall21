@@ -53,6 +53,8 @@ class GameBoard
             return false
         end
         return true
+        puts "END"
+        
     end
 
     # return Boolean on whether attack was successful or not (hit a ship?)
