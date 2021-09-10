@@ -6,14 +6,40 @@ require_relative '../models/position'
 # Return nil on any error (validation error or file opening error)
 # If 5 valid ships added, return GameBoard; return nil otherwise
 def read_ships_file(path)
-    GameBoard.new 10, 10
+    gb = GameBoard.new 10, 10
+    
+    begin 
+        read_file_lines(path) {
+            |info_txt|
+            info_txt = info_txt.split(",")
+            pos = Position.new(info_txt[0][1..-1], info_txt[1][0..-2])
+            ship = Ship.new(pos, info_txt[2], info_txt[3])
+            gb.add_ship(ship)
+            puts ship
+        }
+    rescue 
+        return nil 
+    end 
+    return gb 
 end
 
 
 # return Array of Position or nil
 # Returns nil on file open error
 def read_attacks_file(path)
-    [Position.new(1, 1)]
+    ret_arr = []
+    
+    begin
+        read_file_lines(path) {
+            |pos_txt| 
+            pos_txt = pos_txt[1..-2].split(",")
+            pos = Position.new(pos_txt[0],pos_txt[1])
+            ret_arr.push(pos)
+        }
+    rescue 
+        return nil 
+    end 
+    return ret_arr
 end
 
 

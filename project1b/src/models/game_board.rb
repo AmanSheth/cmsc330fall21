@@ -13,6 +13,7 @@ class GameBoard
     # Returns true on successfully added the ship, false otherwise
     # Note that Position pair starts from 1 to max_row/max_column
     def add_ship(ship) 
+        puts "in gb" + ship.to_s
         y_coor = ship.start_position.column
         x_coor = ship.start_position.row
 
